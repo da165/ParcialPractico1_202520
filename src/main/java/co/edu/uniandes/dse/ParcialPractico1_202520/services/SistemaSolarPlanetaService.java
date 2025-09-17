@@ -22,7 +22,7 @@ public class SistemaSolarPlanetaService {
         log.info("Inicia el proceso de añadir un planeta a un sistema solar");
         Optional<PlanetaEntity> planetaEntityOpt= planetaEntityRepository.findById(idPlaneta);
         Optional<SistemaSolar> sistemaSolarOpt= sistemaSolarRepository.findById(idSistema);
-        if(sistemaSolarOpt.get().getRatioFuerza()<Double.valueOf(planetaEntityOpt.get().getPoblacion())){
+        if((sistemaSolarOpt.get().getRatioFuerza()/planetaEntityOpt.get().getDiametroPlaneta())<Double.valueOf(planetaEntityOpt.get().getPoblacion())){
             throw new IllegalOperationException("Los ratios son incompatibles");
         }
         PlanetaEntity planeta= planetaEntityOpt.get();

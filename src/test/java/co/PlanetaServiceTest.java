@@ -1,5 +1,4 @@
 package co;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -14,50 +13,46 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
-import co.edu.uniandes.dse.ParcialPractico1_202520.entities.SistemaSolar;
+import co.edu.uniandes.dse.ParcialPractico1_202520.entities.PlanetaEntity;
 import co.edu.uniandes.dse.ParcialPractico1_202520.exceptions.EntityNotFoundException;
 import co.edu.uniandes.dse.ParcialPractico1_202520.exceptions.IllegalOperationException;
-import co.edu.uniandes.dse.ParcialPractico1_202520.services.SistemaSolarService;
+import co.edu.uniandes.dse.ParcialPractico1_202520.services.PlanetaEntityService;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 @DataJpaTest
 @Transactional
-@Import(SistemaSolarService.class)
-public class SistemaSolarTest {
+@Import(PlanetaEntityService.class)
+public class PlanetaServiceTest {
     @Autowired
-    private SistemaSolarService sistemaSolarService;
+    private PlanetaEntityService planetaEntityService;
     @Autowired
-    private TestEntityManager entityManager;
-    private PodamFactory factory= new PodamFactoryImpl();
-    private List<SistemaSolar> listaSistema = new ArrayList<>();
+    TestEntityManager entityManager;
+        private PodamFactory factory= new PodamFactoryImpl();
+    private List<PlanetaEntity> listaSistema = new ArrayList<>();
     @BeforeEach
     void setUp(){
         clearData();
         insertData();
     }
     void clearData(){
-        entityManager.getEntityManager().createQuery("delete from SistemaSolar");
+        entityManager.getEntityManager().createQuery("delete from PlanetaEntity");
     }
     void insertData(){
         for(int i=0; i<3; i++){
-            SistemaSolar sistemaEntity= factory.manufacturePojo(SistemaSolar.class);
+            PlanetaEntity sistemaEntity= factory.manufacturePojo(PlanetaEntity.class);
             entityManager.persist(sistemaEntity);
             listaSistema.add(sistemaEntity);
         }
     }
     @Test
     void testCrearSistema() throws IllegalOperationException, EntityNotFoundException{
-        SistemaSolar newEntity =factory.manufacturePojo(SistemaSolar.class);
-        SistemaSolar result= sistemaSolarService.creaSistemaSolar(newEntity);
+        PlanetaEntity newEntity =factory.manufacturePojo(PlanetaEntity.class);
+        PlanetaEntity result= planetaEntityService.crearPlaneta(newEntity);
         assertNotNull(result);
 
-        SistemaSolar entity= entityManager.find(SistemaSolar.class, result.getId());
+        PlanetaEntity entity= entityManager.find(PlanetaEntity.class, result.getId());
         assertEquals(newEntity.getId(), entity.getId());        
 		assertEquals(newEntity.getNombre(), entity.getNombre());        
-    }
-    @Test
-    void testCrearSistemaNombreErroneo() throws IllegalOperationException, EntityNotFoundException{
-        
     }
 }
