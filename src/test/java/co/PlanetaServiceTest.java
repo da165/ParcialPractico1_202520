@@ -28,8 +28,8 @@ public class PlanetaServiceTest {
     private PlanetaEntityService planetaEntityService;
     @Autowired
     TestEntityManager entityManager;
-        private PodamFactory factory= new PodamFactoryImpl();
-    private List<PlanetaEntity> listaSistema = new ArrayList<>();
+    private PodamFactory factory= new PodamFactoryImpl();
+    private List<PlanetaEntity> listaPlaneta = new ArrayList<>();
     @BeforeEach
     void setUp(){
         clearData();
@@ -40,9 +40,9 @@ public class PlanetaServiceTest {
     }
     void insertData(){
         for(int i=0; i<3; i++){
-            PlanetaEntity sistemaEntity= factory.manufacturePojo(PlanetaEntity.class);
-            entityManager.persist(sistemaEntity);
-            listaSistema.add(sistemaEntity);
+            PlanetaEntity planetaEntity= factory.manufacturePojo(PlanetaEntity.class);
+            entityManager.persist(planetaEntity);
+            listaPlaneta.add(planetaEntity);
         }
     }
     @Test

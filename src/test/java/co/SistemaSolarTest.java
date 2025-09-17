@@ -54,10 +54,7 @@ public class SistemaSolarTest {
 
         SistemaSolar entity= entityManager.find(SistemaSolar.class, result.getId());
         assertEquals(newEntity.getId(), entity.getId());        
-		assertEquals(newEntity.getNombre(), entity.getNombre());        
-    }
-    @Test
-    void testCrearSistemaNombreErroneo() throws IllegalOperationException, EntityNotFoundException{
-        
+		assertEquals(newEntity.getNombre(), entity.getNombre());     
+           
     }
 }
